@@ -24,7 +24,7 @@ Dieses Skript ermöglicht es Spielern, in der Nähe eines ATMs einen Überfall z
 2. Füge das Skript zur `server.cfg` hinzu:
 
    ```bash
-   ensure atm-robbery
+   ensure S-ATMRobbery
    ```
    3. config einrichten
   
