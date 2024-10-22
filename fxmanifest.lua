@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-author 'Dein Name'
+author 'S-DEVELOPMENT'
 description 'ATM Robbery Script'
 version '1.0.0'
 
@@ -12,6 +12,8 @@ client_scripts {
 server_scripts {
     'server.lua'
 }
+
+shared_script "config.lua"
 
 
 

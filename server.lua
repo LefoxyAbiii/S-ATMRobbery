@@ -11,18 +11,16 @@ AddEventHandler('atm:rewardPlayer', function(amount)
     end
 end)
 
-
 RegisterNetEvent('wash_money:exchange', function(amount)
     local xPlayer = ESX.GetPlayerFromId(source)
     local blackMoney = xPlayer.getAccount('black_money').money
 
     if blackMoney >= amount then
-        local washedAmount = math.floor(amount * 0.85) -- 15% abziehen
-        local companyCut = amount - washedAmount -- Die Firma behält 15%
+        local washedAmount = math.floor(amount * 0.85)
+        local companyCut = amount - washedAmount
 
-        -- Schwarzgeld entfernen und reguläres Geld hinzufügen
         xPlayer.removeAccountMoney('black_money', amount)
-        xPlayer.addMoney(washedAmount) -- Spieler erhält 85% des gewaschenen Betrags
+        xPlayer.addMoney(washedAmount)
 
         TriggerClientEvent('ox_lib:notify', source, {
             title = 'Erfolgreich',
@@ -35,5 +33,21 @@ RegisterNetEvent('wash_money:exchange', function(amount)
             description = 'Nicht genug Schwarzgeld!',
             type = 'error'
         })
+    end
+end)
+
+
+RegisterNetEvent('atm:notifyPolice')
+AddEventHandler('atm:notifyPolice', function(atmCoords)
+    local _source = source
+    local xPlayers = ESX.GetPlayers()
+
+    for _, playerId in ipairs(xPlayers) do
+        local xPlayer = ESX.GetPlayerFromId(playerId)
+        if xPlayer.job.name == 'police' then
+            TriggerClientEvent('esx:showHelpNotification', playerId, 'Ein ATM wird überfallen! Drücke E für einen Wegpunkt.', false)
+            -- Hier kannst du einen Wegpunkt setzen, wenn gewünscht
+            TriggerClientEvent('esx:showMarker', playerId, atmCoords) -- Füge einen Marker oder Wegpunkt hinzu
+        end
     end
 end)
